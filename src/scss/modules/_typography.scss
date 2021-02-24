@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap');
+
+// Family
+// $serif: Alegreya, serif;
+$sans-serif: Rubik, sans-serif;
+
+// Weight
+$fw-bold: 500;
+
+// Extensions
+%heading-01 {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 57px;
+  letter-spacing: -0.6px;
+}
+
+%heading-02 {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 32px;
+}
+
+%heading-03 {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+%heading-04 {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+%paragraph {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+%caption {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 1.125px;
+  text-transform: uppercase;
+}
+
+%caption-light {
+  font-family: $sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 1.21333px;
+  text-transform: uppercase;
+}
+
+h1 {
+  @extend %heading-01;
+}
+
+h2 {
+  @extend %heading-02;
+}
+
+h3 {
+  @extend %heading-03;
+}
+
+h4 {
+  @extend %heading-04;
+}
+
+p,
+body {
+  @extend %paragraph;
+}
