@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+
+  width: 100%;
+  padding: $spacing-03 0;
+  border-top: 1px solid gray;
+
+  &:first-child() {
+    padding-top: 0;
+  }
+
+  &__avatar {
+    width: 3.5em;
+    height: auto;
+    border-radius: 100%;
+  }
+
+  &__body {
+    flex-grow: 1;
+
+    margin-left: $spacing-02;
+  }
+}
