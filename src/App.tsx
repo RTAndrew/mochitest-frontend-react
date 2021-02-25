@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { EmptyMessage } from 'components';
-import './App.scss';
 
 const { Search } = Input;
 
@@ -34,8 +33,9 @@ const App = () => {
         />
 
         <EmptyMessage
-          element={<SearchOutlined  />}
+          element={<SearchOutlined />}
           message="Enter a login, name or a company you are looking for."
+          action={{ title: 'r', callback: () => alert('ok') }}
         />
       </div>
     </div>
