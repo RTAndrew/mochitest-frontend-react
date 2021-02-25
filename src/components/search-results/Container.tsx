@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Tabs, Spin } from 'antd';
-import { UserList } from 'components';
+import { UserList, OrganizationList } from 'components';
 
 const { TabPane } = Tabs;
 
@@ -30,7 +30,7 @@ const SearchResultsContainer = ({
           <UserList data={getUserResults()} />
         </TabPane>
         <TabPane tab={`COMPANIES (${getOrganizationResults().length})`} key="2">
-          Content of Tab Pane 2
+          <OrganizationList data={getOrganizationResults()} />
         </TabPane>
       </Tabs>
     </div>
