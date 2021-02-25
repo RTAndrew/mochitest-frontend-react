@@ -1,12 +1,12 @@
 .header {
   font-weight: $fw-bold;
   text-transform: uppercase;
-  margin-top: $spacing-04;
-  margin-bottom: $spacing-02;
 
   &__list {
     display: flex;
     justify-content: space-between;
+
+    margin-bottom: $spacing-02;
   }
 
   &__items {
@@ -14,5 +14,4 @@
       color: gray;
     }
   }
-
 }
