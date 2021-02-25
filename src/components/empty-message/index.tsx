@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React, { ReactNode } from 'react';
 
 interface EmptyMessageProps {
@@ -26,9 +27,13 @@ const EmptyMessage = ({
       <a href={link?.url} className="emptyMessage__action">
         {link?.title}
       </a>
-      <a className="emptyMessage__action" onClick={action?.callback}>
+      <Button
+        type="primary"
+        className="emptyMessage__action"
+        onClick={action?.callback}
+      >
         {action?.title}
-      </a>
+      </Button>
     </div>
   );
 };
