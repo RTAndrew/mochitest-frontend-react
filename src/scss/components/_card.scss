@@ -8,10 +8,6 @@
   padding: $spacing-03 0;
   border-top: 1px solid gray;
 
-  &:first-child() {
-    padding-top: 0;
-  }
-
   &__avatar {
     width: 3.5em;
     height: auto;
