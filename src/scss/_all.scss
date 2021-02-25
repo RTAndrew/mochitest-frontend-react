@@ -2,3 +2,23 @@
 @import './modules/all';
 @import './components/all';
 @import './pages/all.scss';
+
+.container {
+  @extend %container;
+}
+
+.App {
+  margin-top: $layout-01;
+
+  &__header {
+    font-weight: bold;
+  }
+
+  .emptyMessage {
+    margin-top: $spacing-04;
+  }
+}
+
+body {
+  font-size: ms(1);
+}
