@@ -2,21 +2,30 @@ import React, { useState } from 'react';
 
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { EmptyMessage } from 'components';
+import { EmptyMessage, SearchResultsContainer } from 'components';
+import { Http } from 'services';
 
 const { Search } = Input;
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [query, setQuery] = useState<String>('');
+  const [queryResult, setQueryResult] = useState<Array<any>>([]);
 
-  function onSearch(value: String) {
-    setLoading(true);
+  async function onSearch(value: String) {
+    if (!value) return;
+
     setQuery(value);
+    setLoading(true);
 
-    setInterval(() => {
+    const { parsedBody } = await Http.get(`search/users?q=${value}`);
+
+    if (parsedBody) {
       setLoading(false);
-    }, 1500);
+
+      const query: any = parsedBody;
+      setQueryResult(query.items);
+    }
   }
 
   return (
@@ -31,12 +40,14 @@ const App = () => {
           onSearch={onSearch}
           placeholder="Type a user name here"
         />
-
-        <EmptyMessage
-          element={<SearchOutlined />}
-          message="Enter a login, name or a company you are looking for."
-          action={{ title: 'r', callback: () => alert('ok') }}
-        />
+        {!query ? (
+          <EmptyMessage
+            element={<SearchOutlined />}
+            message="Enter a login, name or a company you are looking for."
+          />
+        ) : (
+          <SearchResultsContainer loading={loading} results={queryResult} />
+        )}
       </div>
     </div>
   );
