@@ -21,7 +21,8 @@ export async function get<T>(
   args: RequestInit = {
     method: 'get',
     headers: {
-      Accept: 'application/vnd.github.v3+json',
+      Accept: 'application/vnd.github.cloak-preview',
+      Authorization: 'token 3da8d21a717f47e08d84b1964ac885edbf323a33',
     },
   },
 ): Promise<HttpResponse<T>> {
