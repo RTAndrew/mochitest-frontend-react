@@ -1,13 +1,36 @@
-import './App.scss';
+import React, { useState } from 'react';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
-import React from 'react';
+import { Home } from 'pages';
+import { StoreContext } from 'contexts';
 
 const App = () => {
-  return (
-    <div className="App">
+  const [loading, setLoading] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>('');
+  const [queryResult, setQueryResult] = useState<Array<any>>([]);
 
+  const store = {
+    loading,
+    setLoading,
+    query,
+    setQuery,
+    queryResult,
+    setQueryResult,
+  };
+
+  return (
+    <div className="App container">
+      <Router>
+        <Switch>
+          <StoreContext.Provider value={store}>
+            <Route path="/" component={Home} />
+
+            <Route path="*">"404 "</Route>
+          </StoreContext.Provider>
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

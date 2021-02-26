@@ -1,0 +1,17 @@
+.header {
+  font-weight: $fw-bold;
+  text-transform: uppercase;
+
+  &__list {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: $spacing-02;
+  }
+
+  &__items {
+    &:last-child() {
+      color: gray;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.emptyMessage {
+  width: 100%;
+  padding: $spacing-04;
+
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  flex-direction: column;
+
+  &__element {
+    color: gray;
+    font-size: 4em;
+  }
+
+  &__message {
+    margin-top: 0.5em;
+    text-align: center;
+  }
+}
