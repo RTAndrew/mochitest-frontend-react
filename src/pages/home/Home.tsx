@@ -26,6 +26,7 @@ const Home = () => {
 
     setQuery(value);
     setLoading(true);
+    setIsError(false);
 
     try {
       const { parsedBody } = await Http.get(`search/users?q=${value}`);
@@ -38,9 +39,8 @@ const Home = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      setIsError(true);;
+      setIsError(true);
     }
-
   }
 
   return (
