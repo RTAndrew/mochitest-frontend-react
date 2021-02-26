@@ -7,15 +7,19 @@ type TStoreContext = {
   setLoading: Dispatch<SetStateAction<boolean>>;
   queryResult?: Array<any>;
   setQueryResult: Dispatch<SetStateAction<any[]>>;
+  isError?: boolean;
+  setIsError: Dispatch<SetStateAction<boolean>>;
 };
 
 const StoreContextProps: TStoreContext = {
   query: '',
   loading: false,
+  isError: false,
   queryResult: [],
   setQuery: () => {},
   setQueryResult: () => {},
   setLoading: () => {},
+  setIsError: () => {},
 };
 
 export const StoreContext = createContext<TStoreContext>(StoreContextProps);

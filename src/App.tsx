@@ -6,6 +6,7 @@ import { StoreContext } from 'contexts';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('');
   const [queryResult, setQueryResult] = useState<Array<any>>([]);
 
@@ -16,6 +17,8 @@ const App = () => {
     setQuery,
     queryResult,
     setQueryResult,
+    isError,
+    setIsError,
   };
 
   return (
