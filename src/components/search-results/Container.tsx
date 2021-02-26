@@ -6,7 +6,6 @@ import { StoreContext } from 'contexts';
 
 const { TabPane } = Tabs;
 
-
 const SearchResultsContainer = () => {
   const { queryResult, loading, isError } = useContext(StoreContext);
 
@@ -33,14 +32,38 @@ const SearchResultsContainer = () => {
 
   return (
     <div className="searchResults">
-      <Tabs defaultActiveKey="1">
-        <TabPane tab={`USERS (${countUsers()})`} key="1">
-          <UserList />
-        </TabPane>
-        <TabPane tab={`COMPANIES (${countOrganizations()})`} key="2">
-          <OrganizationList />
-        </TabPane>
-      </Tabs>
+      <div className="searchResults--mobile">
+        <Tabs defaultActiveKey="1">
+          <TabPane tab={`USERS (${countUsers()})`} key="1">
+            <UserList />
+          </TabPane>
+          <TabPane tab={`COMPANIES (${countOrganizations()})`} key="2">
+            <OrganizationList />
+          </TabPane>
+        </Tabs>
+      </div>
+
+      <div className="searchResults--desktop">
+        <div className="searchResults--desktop__list">
+          <div className="searchResults--desktop__items">
+            <div className="searchResults--desktop__header">
+              {`USERS (${countUsers()})`}
+            </div>
+            <div className="searchResults--desktop__body">
+              <UserList />
+            </div>
+          </div>
+
+          <div className="searchResults--desktop__items">
+            <div className="searchResults--desktop__header">
+              {`COMPANIES (${countOrganizations()})`}
+              </div>
+            <div className="searchResults--desktop__body">
+              <OrganizationList />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
