@@ -14,14 +14,14 @@ const OrganizationList = () => {
     return (
       <EmptyMessage
         element={0}
-        message="Hummm... We didn't find any companies"
+        message="Hummm... We didn't find any companies..."
       />
     );
 
   return (
     <SearchResultsHeader headerName="Company" description="People">
       {organizationList.map(company => {
-        return <Card data={company} />;
+        return <Card key={company.id} data={company} />;
       })}
     </SearchResultsHeader>
   );
