@@ -23,6 +23,7 @@ const Card = ({ data }: CardProps) => {
     return () => {
       setAdditionalInfo({});
     };
+    // eslint-disable-next-line
   }, [login, type]);
 
   async function fetchAll(login: string, type: string) {

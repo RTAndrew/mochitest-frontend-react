@@ -1,8 +1,8 @@
 import React, { FC, ReactNode } from 'react';
 
 interface HeaderProps {
-  headerName: String | ReactNode;
-  description: String | Number | ReactNode;
+  headerName: string | ReactNode;
+  description: string | number | ReactNode;
 }
 
 const Header: FC<HeaderProps> = ({ headerName, description, children }) => {

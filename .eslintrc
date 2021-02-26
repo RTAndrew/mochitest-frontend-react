@@ -10,9 +10,14 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "simple-import-sort"
+    "simple-import-sort",
+    "prettier",
+    "import",
+    "react",
+    "react-hooks"
   ],
   "extends": [
+    "airbnb",
     "prettier",
     "prettier/react",
     "react-app",
@@ -26,17 +31,38 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-submodule-imports": "off",
     "@typescript-eslint/no-unused-expressions": "warn",
     "@typescript-eslint/jsx-no-lambda": "off",
     "@typescript-eslint/prefer-interface": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/camelcase": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "simple-import-sort/sort": "warn",
     "no-console": "off",
     "sort-keys": "off",
-    "sort-imports": "off"
+    "sort-imports": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
+      "error"
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true
+      }
+    ]
   },
   "env": {
     "browser": true,

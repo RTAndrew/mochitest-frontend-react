@@ -1,23 +1,17 @@
-import React, { useContext } from 'react';
-
-import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import { EmptyMessage, SearchResultsContainer } from 'components';
 import { StoreContext } from 'contexts';
+import React, { useContext } from 'react';
 import { Http } from 'services';
 import validator from 'validator';
 
 const { Search } = Input;
 
 const Home = () => {
-  const {
-    loading,
-    setLoading,
-    query,
-    setQuery,
-    setIsError,
-    setQueryResult,
-  } = useContext(StoreContext);
+  const { loading, setLoading, query, setQuery, setIsError, setQueryResult } = useContext(
+    StoreContext,
+  );
 
   async function onSearch(value: string) {
     if (validator.isEmpty(value)) return;
@@ -29,9 +23,7 @@ const Home = () => {
     setIsError(false);
 
     try {
-      const { parsedBody } = await Http.get(
-        `search/users?q=${value}&page=1&per_page=20`,
-      );
+      const { parsedBody } = await Http.get(`search/users?q=${value}&page=1&per_page=20`);
 
       if (!parsedBody) return;
 

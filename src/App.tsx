@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-
-import { Home } from 'pages';
 import { StoreContext } from 'contexts';
+import { Home } from 'pages';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const App = () => {
   const [loading, setLoading] = useState<boolean>(false);
