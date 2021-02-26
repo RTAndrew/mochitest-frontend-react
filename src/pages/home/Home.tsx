@@ -29,7 +29,9 @@ const Home = () => {
     setIsError(false);
 
     try {
-      const { parsedBody } = await Http.get(`search/users?q=${value}`);
+      const { parsedBody } = await Http.get(
+        `search/users?q=${value}&page=1&per_page=20`,
+      );
 
       if (!parsedBody) return;
 
