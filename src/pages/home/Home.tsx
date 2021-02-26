@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { EmptyMessage, SearchResultsContainer } from 'components';
 import { Http } from 'services';
+import { StoreContext } from 'contexts';
 
 const { Search } = Input;
 
 const Home = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [query, setQuery] = useState<String>('');
-  const [queryResult, setQueryResult] = useState<Array<any>>([]);
+  const { loading, setLoading, query, setQuery, setQueryResult } = useContext(
+    StoreContext,
+  );
 
-  async function onSearch(value: String) {
+  async function onSearch(value: string) {
     if (!value) return;
 
     setQuery(value);
@@ -45,7 +46,7 @@ const Home = () => {
             message="Enter a login, name or a company you are looking for."
           />
         ) : (
-          <SearchResultsContainer loading={loading} results={queryResult} />
+          <SearchResultsContainer />
         )}
       </div>
     </div>

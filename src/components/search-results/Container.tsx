@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Tabs, Spin } from 'antd';
 import { UserList, OrganizationList } from 'components';
+import { StoreContext } from 'contexts';
 
 const { TabPane } = Tabs;
 
-interface SearchResultsContainerProps {
-  loading: boolean;
-  results: Array<any>;
-}
 
-const SearchResultsContainer = ({
-  loading,
-  results,
-}: SearchResultsContainerProps) => {
-  function getUserResults(): Array<any> {
-    return results.filter((result: any) => result.type !== 'Organization');
+const SearchResultsContainer = () => {
+  const { queryResult, loading } = useContext(StoreContext);
+
+  function countUsers(): number {
+    const filter = queryResult!.filter((result: any) => result.type === 'User');
+    return filter.length;
   }
-  function getOrganizationResults() {
-    return results.filter((result: any) => result.type !== 'User');
+  function countOrganizations(): number {
+    const filter = queryResult!.filter(
+      (result: any) => result.type === 'Organization',
+    );
+    return filter.length;
   }
 
   if (loading) return <Spin className="loadingSpinner" />;
@@ -26,11 +26,11 @@ const SearchResultsContainer = ({
   return (
     <div className="searchResults">
       <Tabs defaultActiveKey="1">
-        <TabPane tab={`USERS (${getUserResults().length})`} key="1">
-          <UserList data={getUserResults()} />
+        <TabPane tab={`USERS (${countUsers()})`} key="1">
+          <UserList />
         </TabPane>
-        <TabPane tab={`COMPANIES (${getOrganizationResults().length})`} key="2">
-          <OrganizationList data={getOrganizationResults()} />
+        <TabPane tab={`COMPANIES (${countOrganizations()})`} key="2">
+          <OrganizationList />
         </TabPane>
       </Tabs>
     </div>

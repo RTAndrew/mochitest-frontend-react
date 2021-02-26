@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Card, EmptyMessage, SearchResultsHeader } from 'components';
+import { StoreContext } from 'contexts';
 
-interface OrganizationListProps {
-  data: Array<any>;
-}
+const OrganizationList = () => {
+  const { queryResult } = useContext(StoreContext);
 
-const OrganizationList = ({ data }: OrganizationListProps) => {
-  if (data.length < 1)
+  const organizationList = queryResult!.filter(
+    (result: any) => result.type === 'Organization',
+  );
+
+  if (organizationList.length < 1)
     return (
       <EmptyMessage
         element={0}
@@ -17,7 +20,7 @@ const OrganizationList = ({ data }: OrganizationListProps) => {
 
   return (
     <SearchResultsHeader headerName="Company" description="People">
-      {data.map(company => {
+      {organizationList.map(company => {
         return <Card data={company} />;
       })}
     </SearchResultsHeader>
