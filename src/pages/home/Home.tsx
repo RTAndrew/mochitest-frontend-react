@@ -3,8 +3,9 @@ import React, { useContext } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { EmptyMessage, SearchResultsContainer } from 'components';
-import { Http } from 'services';
 import { StoreContext } from 'contexts';
+import { Http } from 'services';
+import validator from 'validator';
 
 const { Search } = Input;
 
@@ -14,7 +15,9 @@ const Home = () => {
   );
 
   async function onSearch(value: string) {
-    if (!value) return;
+    if (validator.isEmpty(value)) return;
+
+    value = validator.escape(value);
 
     setQuery(value);
     setLoading(true);
