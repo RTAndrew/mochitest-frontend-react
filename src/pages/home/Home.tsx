@@ -23,7 +23,7 @@ const Home = () => {
     setIsError(false);
 
     try {
-      const { parsedBody } = await Http.get(`search/users?q=${value}&page=1&per_page=20`);
+      const { parsedBody } = await Http.get(`search/users?q=${value}&page=1&per_page=5`);
 
       if (!parsedBody) return;
 
