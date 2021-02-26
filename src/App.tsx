@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import { Home } from 'pages';
+import { StoreContext } from 'contexts';
 
 const App = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>('');
+  const [queryResult, setQueryResult] = useState<Array<any>>([]);
+
+  const store = {
+    loading,
+    setLoading,
+    query,
+    setQuery,
+    queryResult,
+    setQueryResult,
+  };
+
   return (
     <div className="App container">
       <Router>
         <Switch>
-          {/* <Route path="/organizations" component={DashboardSignIn} /> */}
-          {/* <Route path="/users" component={Dashboard} /> */}
-          <Route path="/" component={Home} />
+          <StoreContext.Provider value={store}>
+            <Route path="/" component={Home} />
 
-          <Route path="*">"404 "</Route>
+            <Route path="*">"404 "</Route>
+          </StoreContext.Provider>
         </Switch>
       </Router>
     </div>
