@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
-
-import { Tabs, Spin } from 'antd';
-import { UserList, OrganizationList, EmptyMessage } from 'components';
+import { Spin, Tabs } from 'antd';
+import { EmptyMessage, OrganizationList, UserList } from 'components';
 import { StoreContext } from 'contexts';
+import React, { useContext } from 'react';
 
 const { TabPane } = Tabs;
 
@@ -14,21 +13,14 @@ const SearchResultsContainer = () => {
     return filter.length;
   }
   function countOrganizations(): number {
-    const filter = queryResult!.filter(
-      (result: any) => result.type === 'Organization',
-    );
+    const filter = queryResult!.filter((result: any) => result.type === 'Organization');
     return filter.length;
   }
 
   if (loading) return <Spin className="loadingSpinner" />;
 
   if (isError)
-    return (
-      <EmptyMessage
-        element="😢"
-        message="Oops... we could not process your request."
-      />
-    );
+    return <EmptyMessage element="😢" message="Oops... we could not process your request." />;
 
   return (
     <div className="searchResults">
@@ -46,9 +38,7 @@ const SearchResultsContainer = () => {
       <div className="searchResults--desktop">
         <div className="searchResults--desktop__list">
           <div className="searchResults--desktop__items">
-            <div className="searchResults--desktop__header">
-              {`USERS (${countUsers()})`}
-            </div>
+            <div className="searchResults--desktop__header">{`USERS (${countUsers()})`}</div>
             <div className="searchResults--desktop__body">
               <UserList />
             </div>
@@ -57,7 +47,7 @@ const SearchResultsContainer = () => {
           <div className="searchResults--desktop__items">
             <div className="searchResults--desktop__header">
               {`COMPANIES (${countOrganizations()})`}
-              </div>
+            </div>
             <div className="searchResults--desktop__body">
               <OrganizationList />
             </div>
