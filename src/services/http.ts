@@ -22,7 +22,7 @@ export async function get<T>(
     method: 'get',
     headers: {
       Accept: 'application/vnd.github.cloak-preview',
-      Authorization: 'token 3da8d21a717f47e08d84b1964ac885edbf323a33',
+      Authorization: `token ${process.env.REACT_APP_TOKEN}`,
     },
   },
 ): Promise<HttpResponse<T>> {
