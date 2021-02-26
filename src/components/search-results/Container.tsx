@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 
 import { Tabs, Spin } from 'antd';
-import { UserList, OrganizationList } from 'components';
+import { UserList, OrganizationList, EmptyMessage } from 'components';
 import { StoreContext } from 'contexts';
 
 const { TabPane } = Tabs;
 
 
 const SearchResultsContainer = () => {
-  const { queryResult, loading } = useContext(StoreContext);
+  const { queryResult, loading, isError } = useContext(StoreContext);
 
   function countUsers(): number {
     const filter = queryResult!.filter((result: any) => result.type === 'User');
@@ -22,6 +22,14 @@ const SearchResultsContainer = () => {
   }
 
   if (loading) return <Spin className="loadingSpinner" />;
+
+  if (isError)
+    return (
+      <EmptyMessage
+        element="😢"
+        message="Oops... we could not process your request."
+      />
+    );
 
   return (
     <div className="searchResults">

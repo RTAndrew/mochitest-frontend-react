@@ -3,29 +3,44 @@ import React, { useContext } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { EmptyMessage, SearchResultsContainer } from 'components';
-import { Http } from 'services';
 import { StoreContext } from 'contexts';
+import { Http } from 'services';
+import validator from 'validator';
 
 const { Search } = Input;
 
 const Home = () => {
-  const { loading, setLoading, query, setQuery, setQueryResult } = useContext(
-    StoreContext,
-  );
+  const {
+    loading,
+    setLoading,
+    query,
+    setQuery,
+    setIsError,
+    setQueryResult,
+  } = useContext(StoreContext);
 
   async function onSearch(value: string) {
-    if (!value) return;
+    if (validator.isEmpty(value)) return;
+
+    value = validator.escape(value);
 
     setQuery(value);
     setLoading(true);
 
-    const { parsedBody } = await Http.get(`search/users?q=${value}`);
+    try {
+      const { parsedBody } = await Http.get(`search/users?q=${value}`);
 
-    if (!parsedBody) return;
-    setLoading(false);
+      if (!parsedBody) return;
 
-    const query: any = parsedBody;
-    setQueryResult(query.items);
+      const query: any = parsedBody;
+      setQueryResult(query.items);
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setIsError(true);;
+    }
+
   }
 
   return (
