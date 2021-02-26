@@ -12,13 +12,16 @@ const UserList = () => {
 
   if (userList.length < 1)
     return (
-      <EmptyMessage element={0} message="Hummm... We didn't find any users" />
+      <EmptyMessage
+        element={0}
+        message="Hummm... We didn't find any users..."
+      />
     );
 
   return (
     <SearchResultsHeader headerName="User" description="Contribuitions">
       {userList.map(user => {
-        return <Card data={user} />;
+        return <Card key={user.id} data={user} />;
       })}
     </SearchResultsHeader>
   );

@@ -1,0 +1,35 @@
+.searchResults {
+  &--mobile {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &--desktop {
+    &__list {
+      display: flex;
+      gap: 1em;
+
+      @media (min-width: 1200px) {
+        gap: 3em;
+      }
+    }
+
+    &__items {
+      width: 100%;
+    }
+
+    &__header {
+      font-size: ms(2);
+      font-weight: $fw-bold;
+      padding-bottom: 3px;
+      margin-bottom: $spacing-04;
+      border-bottom: 3px solid black;
+      margin-top: $layout-01 + -$spacing-03;
+    }
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+}

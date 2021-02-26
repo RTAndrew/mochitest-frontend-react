@@ -1,6 +1,4 @@
 .header {
-  font-weight: $fw-bold;
-  text-transform: uppercase;
 
   &__list {
     display: flex;
@@ -10,8 +8,12 @@
   }
 
   &__items {
+    color: $black--70;
+    font-weight: $fw-bold;
+    text-transform: uppercase;
+
     &:last-child() {
-      color: gray;
+      color: $grey;
     }
   }
 }
