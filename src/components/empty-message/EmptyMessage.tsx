@@ -17,14 +17,20 @@ interface EmptyMessageProps {
 const EmptyMessage = ({ element, message, link, action }: EmptyMessageProps) => {
   return (
     <div className="emptyMessage">
-      <div className="emptyMessage__element"> {element} </div>
+      <div className="emptyMessage__element">{element}</div>
       <div className="emptyMessage__message">{message}</div>
-      <a href={link?.url} className="emptyMessage__action">
-        {link?.title}
-      </a>
-      <Button type="primary" className="emptyMessage__action" onClick={action?.callback}>
-        {action?.title}
-      </Button>
+
+      {link && (
+        <a href={link?.url} className="emptyMessage__action">
+          {link?.title}
+        </a>
+      )}
+
+      {action && (
+        <Button type="primary" className="emptyMessage__action" onClick={action?.callback}>
+          {action?.title}
+        </Button>
+      )}
     </div>
   );
 };
