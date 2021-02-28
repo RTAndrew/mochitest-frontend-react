@@ -1,40 +1,26 @@
 import { render, screen } from '@testing-library/react';
-import { StoreContext } from 'contexts';
+import { StoreContext, StoreContextProps } from 'contexts';
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import UserList from './UserList';
 
 describe('UserList Container Component', () => {
-  const loading: boolean = false;
-  const isError: boolean = false;
-  const setLoading = () => {};
-  const setIsError = () => {};
-  const query: string = '';
-  const setQuery = () => {};
-  const queryResult: any[] = [];
-  const setQueryResult = () => {};
-
-  const store = {
-    loading,
-    isError,
-    setLoading,
-    setIsError,
-    query,
-    setQuery,
-    queryResult,
-    setQueryResult,
-  };
+  const store = StoreContextProps;
 
   beforeEach(() => {
     store.loading = false;
     store.isError = false;
     store.query = '';
-    store.queryResult = [];
+    store.queryResult = {
+      total_count: 0,
+      incomplete_results: true,
+      items: [],
+    };
   });
 
   it('should show an empty message if there is an empty array', () => {
-    store.queryResult = [];
+    store.queryResult!.items = [];
     render(
       <Router>
         <Switch>
@@ -51,7 +37,7 @@ describe('UserList Container Component', () => {
   });
 
   it('should not show an empty, and should render results', () => {
-    store.queryResult = [
+    store.queryResult!.items = [
       {
         login: 'Anderson Rodax',
         id: 7697157,
@@ -88,7 +74,7 @@ describe('UserList Container Component', () => {
     expect(screen.findAllByText(/companies (0)/i)).toBeInTheDocument;
     expect(screen.findAllByText(/Anderson Rodax/i)).toBeInTheDocument;
 
-    store.queryResult = [
+    store.queryResult!.items = [
       {
         login: 'Mochi',
         id: 7697157,
