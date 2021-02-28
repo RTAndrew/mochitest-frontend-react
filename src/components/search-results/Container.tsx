@@ -9,11 +9,11 @@ const SearchResultsContainer = () => {
   const { queryResult, loading, isError } = useContext(StoreContext);
 
   function countUsers(): number {
-    const filter = queryResult!.filter((result: any) => result.type === 'User');
+    const filter = queryResult!.items.filter(result => result.type === 'User');
     return filter.length;
   }
   function countOrganizations(): number {
-    const filter = queryResult!.filter((result: any) => result.type === 'Organization');
+    const filter = queryResult!.items.filter(result => result.type === 'Organization');
     return filter.length;
   }
 

@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 const OrganizationList = () => {
   const { queryResult } = useContext(StoreContext);
 
-  const organizationList = queryResult!.filter((result: any) => result.type === 'Organization');
+  const organizationList = queryResult!.items.filter(result => result.type === 'Organization');
 
   if (organizationList.length < 1)
     return <EmptyMessage element={0} message="Hummm... We didn't find any companies..." />;

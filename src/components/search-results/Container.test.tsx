@@ -1,36 +1,22 @@
 import { render, screen } from '@testing-library/react';
-import { StoreContext } from 'contexts';
+import { StoreContext, StoreContextProps } from 'contexts';
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Container from './Container';
 
 describe('Container Component', () => {
-  let loading: boolean = false;
-  let isError: boolean = false;
-  let setLoading = () => {};
-  let setIsError = () => {};
-  let query: string = '';
-  let setQuery = () => {};
-  let queryResult: any[] = [];
-  let setQueryResult = () => {};
-
-  let store = {
-    loading,
-    isError,
-    setLoading,
-    setIsError,
-    query,
-    setQuery,
-    queryResult,
-    setQueryResult,
-  };
+  let store = StoreContextProps;
 
   beforeEach(() => {
     store.loading = false;
     store.isError = false;
     store.query = '';
-    store.queryResult = [];
+    store.queryResult = {
+      total_count: 0,
+      incomplete_results: true,
+      items: [],
+    };
   });
 
   it('should render a loading spinner', () => {
@@ -56,7 +42,7 @@ describe('Container Component', () => {
   });
 
   it('should render the results', () => {
-    store.queryResult = [
+    store.queryResult!.items = [
       {
         login: 'Anderson Rodax',
         id: 7697157,

@@ -2,6 +2,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import { EmptyMessage, SearchResultsContainer } from 'components';
 import { StoreContext } from 'contexts';
+import { SearchResults } from 'models/HttpResponse.types';
 import React, { useContext } from 'react';
 import { Http } from 'services';
 import validator from 'validator';
@@ -23,12 +24,14 @@ const Home = () => {
     setIsError(false);
 
     try {
-      const { parsedBody } = await Http.get(`search/users?q=${value}&page=1&per_page=5`);
+      const { parsedBody } = await Http.get<SearchResults>(
+        `search/users?q=${value}&page=1&per_page=5`,
+      );
 
       if (!parsedBody) return;
 
-      const query: any = parsedBody;
-      setQueryResult(query.items);
+
+      setQueryResult(parsedBody);
 
       setLoading(false);
     } catch (error) {

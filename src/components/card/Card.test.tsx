@@ -1,19 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import { CardProps } from 'models/Props';
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Card from './Card';
 
 describe('Card Component', () => {
-  interface CardProps {
-    data: {
-      avatar_url: string;
-      login: string;
-      name?: string;
-      type: 'Organization' | 'User';
-    };
-  }
-
   let props: CardProps = {
     data: {
       avatar_url: 'https://avatars.githubusercontent.com/u/873584?v=4',

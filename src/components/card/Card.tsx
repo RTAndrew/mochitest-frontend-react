@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Http } from 'services';
+import {
+  UserAdditionalInfo,
+  OrganizationMembers,
+  SearchAuthorCommits,
+} from 'models/HttpResponse.types';
+import { CardProps } from 'models/Props';
 
-interface CardProps {
-  data: {
-    avatar_url: string;
-    login: string;
-    name?: string;
-    type: 'Organization' | 'User';
-  };
-}
 
 const Card = ({ data }: CardProps) => {
-  const { type, login } = data;
+  const { avatar_url, login, type } = data;
+  const DEFAULT_PROPS = { name: '', ...data };
 
-  const [additionalInfo, setAdditionalInfo] = useState<any>({});
+  const [additionalInfo, setAdditionalInfo] = useState<UserAdditionalInfo>(DEFAULT_PROPS);
   const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     fetchAll(login, type);
 
     return () => {
-      setAdditionalInfo({});
+      setAdditionalInfo(DEFAULT_PROPS);
     };
     // eslint-disable-next-line
   }, [login, type]);
@@ -29,11 +28,11 @@ const Card = ({ data }: CardProps) => {
   async function fetchAll(login: string, type: string) {
     try {
       const additionalInfo = await fetchAdditionalInfo(login);
-      setAdditionalInfo(additionalInfo);
+      setAdditionalInfo(additionalInfo!);
 
       if (type === 'Organization') {
         const people = await fetchOrganizationPeople(login);
-        setCount(people);
+        setCount(people!);
       } else {
         const commits = await fetchUserCommits(login);
         setCount(commits);
@@ -43,37 +42,35 @@ const Card = ({ data }: CardProps) => {
     }
   }
 
-  async function fetchAdditionalInfo(login: string) {
-    const { parsedBody } = await Http.get(`users/${login}`);
+  async function fetchAdditionalInfo(login: string): Promise<UserAdditionalInfo | undefined> {
+    const { parsedBody } = await Http.get<UserAdditionalInfo>(`users/${login}`);
     return parsedBody;
   }
 
-  async function fetchOrganizationPeople(login: string) {
-    const { parsedBody } = await Http.get(`orgs/${login}/members`);
+  async function fetchOrganizationPeople(login: string): Promise<number> {
+    const { parsedBody } = await Http.get<OrganizationMembers>(`orgs/${login}/members`);
 
-    const result: any = parsedBody;
-    return result.length;
+    return parsedBody!.length;
   }
 
-  async function fetchUserCommits(login: string) {
-    const { parsedBody } = await Http.get(
+  async function fetchUserCommits(login: string): Promise<number> {
+    const { parsedBody } = await Http.get<SearchAuthorCommits>(
       `search/commits?q=author:${login}&sort=author-date&order=desc`,
     );
 
-    const result: any = parsedBody;
-    return result.total_count;
+    return parsedBody!.total_count;
   }
 
   function getCardLink(): string {
-    if (data.type === 'Organization') return `/orgs/${data.login}`;
-    return `/users/${data.login}`;
+    if (type === 'Organization') return `/orgs/${login}`;
+    return `/users/${login}`;
   }
 
   return (
     <Link to={getCardLink()} className="card">
-      <img src={data.avatar_url} alt="" className="card__avatar" />
+      <img src={avatar_url} alt="" className="card__avatar" />
       <div className="card__body">
-        <div className="card__header">{data.login}</div>
+        <div className="card__header">{login}</div>
         <div className="card__name">{additionalInfo.name}</div>
       </div>
       <div className="card__footer">{count}</div>
