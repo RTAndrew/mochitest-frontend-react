@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { StoreContext } from 'contexts';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Container from './Container';
 
