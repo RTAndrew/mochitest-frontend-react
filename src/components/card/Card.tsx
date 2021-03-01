@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Http } from 'services';
 import {
@@ -7,9 +7,10 @@ import {
   SearchAuthorCommits,
 } from 'models/HttpResponse.types';
 import { CardProps } from 'models/Props';
-
+import { StoreContext } from 'contexts';
 
 const Card = ({ data }: CardProps) => {
+  const { setIsError } = useContext(StoreContext);
   const { avatar_url, login, type } = data;
   const DEFAULT_PROPS = { name: '', ...data };
 
@@ -25,20 +26,20 @@ const Card = ({ data }: CardProps) => {
     // eslint-disable-next-line
   }, [login, type]);
 
-  async function fetchAll(login: string, type: string) {
+  async function fetchAll(login: string, type: string): Promise<void> {
     try {
       const additionalInfo = await fetchAdditionalInfo(login);
       setAdditionalInfo(additionalInfo!);
 
       if (type === 'Organization') {
-        const people = await fetchOrganizationPeople(login);
+        const people = await fetchOrganizationMembers(login);
         setCount(people!);
       } else {
         const commits = await fetchUserCommits(login);
         setCount(commits);
       }
     } catch (error) {
-      throw new Error(error);
+      setIsError(true);
     }
   }
 
@@ -47,7 +48,7 @@ const Card = ({ data }: CardProps) => {
     return parsedBody;
   }
 
-  async function fetchOrganizationPeople(login: string): Promise<number> {
+  async function fetchOrganizationMembers(login: string): Promise<number> {
     const { parsedBody } = await Http.get<OrganizationMembers>(`orgs/${login}/members`);
 
     return parsedBody!.length;
