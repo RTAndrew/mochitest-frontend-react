@@ -27,13 +27,18 @@ const Home = () => {
   const queryValue = useRef<string | undefined>(query);
 
   async function fetch(value: string, index: number): Promise<SearchResults | undefined> {
-    const { parsedBody } = await Http.get<SearchResults>(
-      `search/users?q=${value}&page=${index + 1}&per_page=5`,
-    );
+    try {
+      const { parsedBody } = await Http.get<SearchResults>(
+        `search/users?q=${value}&page=${index + 1}&per_page=5`,
+      );
 
-    if (!parsedBody) return;
+      if (!parsedBody) return;
 
-    return parsedBody;
+      setIsError(false);
+      return parsedBody;
+    } catch (error) {
+      setIsError(true);
+    }
   }
 
   function calculateSearchValue(value: string): void {
@@ -52,17 +57,21 @@ const Home = () => {
 
     let queryResultCopy: UserAndOrganizations[] = queryResult!.items;
 
-    const newResults = await fetch(value, searchIndex.current);
-    // Can't mutate the newResults directly
-    // So, we will have to copy it then mutate it
-    const copyNewResults = newResults;
+    try {
+      const newResults = await fetch(value, searchIndex.current);
+      // Can't mutate the newResults directly
+      // So, we will have to copy it then mutate it
+      const copyNewResults = newResults;
 
-    if (newResults!.total_count > 0 && newResults!.items.length === 0) {
-      setHasResultsEnded(true);
-    } else {
-      queryResultCopy = [...queryResultCopy, ...newResults!.items];
-      copyNewResults!.items = queryResultCopy;
-      setQueryResult(copyNewResults!);
+      if (newResults!.total_count > 0 && newResults!.items.length === 0) {
+        setHasResultsEnded(true);
+      } else {
+        queryResultCopy = [...queryResultCopy, ...newResults!.items];
+        copyNewResults!.items = queryResultCopy;
+        setQueryResult(copyNewResults!);
+      }
+    } catch (error) {
+      setIsError(true);;
     }
 
     setIsLoadingMoreResults(false);
