@@ -27,15 +27,17 @@ const App = () => {
 
   return (
     <div className="App container">
-      <Router>
-        <Switch>
-          <StoreContext.Provider value={store}>
-            <Route path="/" component={Home} />
-
-            <Route path="*">"404 "</Route>
-          </StoreContext.Provider>
-        </Switch>
-      </Router>
+      <StoreContext.Provider value={store}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/as">"rodax"</Route>
+            <Route path="*">
+              "404 "
+            </Route>
+          </Switch>
+        </Router>
+      </StoreContext.Provider>
     </div>
   );
 };
