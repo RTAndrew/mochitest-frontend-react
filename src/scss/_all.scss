@@ -21,6 +21,22 @@
   .emptyMessage {
     margin-top: $spacing-04;
   }
+
+  .searchInput__showMore {
+    display: flex;
+    justify-content: center;
+
+    color: $grey;
+    font-weight: $fw-bold;
+    margin: $spacing-04 0;
+    text-transform: uppercase;
+
+    &:hover {
+      transition:  1;
+      color: $grey;
+      cursor: pointer;
+    }
+  }
 }
 
 body {
