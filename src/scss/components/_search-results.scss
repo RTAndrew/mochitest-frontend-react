@@ -1,10 +1,4 @@
 .searchResults {
-  &--mobile {
-    @media (min-width: 768px) {
-      display: none;
-    }
-  }
-
   &--desktop {
     &__list {
       display: flex;
@@ -26,10 +20,6 @@
       margin-bottom: $spacing-04;
       border-bottom: 3px solid black;
       margin-top: $layout-01 + -$spacing-03;
-    }
-
-    @media (max-width: 767px) {
-      display: none;
     }
   }
 }
